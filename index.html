@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <canvas id="SolarSystem" width="600" height="600"></canvas>
+    </body>
+    
+    <script type="text/javascript" src="space-objects/space-object.js"></script>
+    <script type="text/javascript" src="space-objects/sun.js"></script>
+    <script type="text/javascript" src="space-objects/mercury.js"></script>
+    <script type="text/javascript" src="space-objects/venus.js"></script>
+    <script type="text/javascript" src="space-objects/earth.js"></script>
+    <script type="text/javascript" src="space-objects/mars.js"></script>
+    <script type="text/javascript" src="space-objects/jupiter.js"></script>
+    <script type="text/javascript" src="space-objects/saturn.js"></script>
+    <script type="text/javascript" src="space-objects/uranus.js"></script>
+    <script type="text/javascript" src="space-objects/neptune.js"></script>
+    <script type="text/javascript" src="space-objects/pluto.js"></script>
+    <script type="text/javascript" src="space-objects/moon.js"></script>
+    <script type="text/javascript" src="solar-system.js"></script>
+
+    <script type="text/javascript">
+        var canvas = document.getElementById("SolarSystem"),
+            solarSystem = new SolarSystemNamespace.SolarSystem({
+                canvas: canvas
+            });
+
+        solarSystem.render();
+    </script>
+</html>
