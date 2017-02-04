@@ -9,6 +9,7 @@
         that.canvas.width = WIDTH;
         that.canvas.height = HEIGHT;
         that.context = that.canvas.getContext("2d");
+        that.earthAge = 0;
 
         that.background = that._getImage("images/space.png");
 
@@ -16,7 +17,7 @@
             new SolarSystemNamespace.Sun({ context: that.context, image: that._getImage("images/sun.png") }),
             new SolarSystemNamespace.Mercury({ context: that.context }),
             new SolarSystemNamespace.Venus({ context: that.context }),
-            new SolarSystemNamespace.Earth({ context: that.context, image: that._getImage("images/earth.png") }),
+            new SolarSystemNamespace.Earth({ context: that.context, image: that._getImage("images/earth.png"), progressCallback: that._onEarthAgeChange.bind(this) }),
             new SolarSystemNamespace.Mars({ context: that.context }),
             new SolarSystemNamespace.Jupiter({ context: that.context }),
             new SolarSystemNamespace.Saturn({ context: that.context }),
@@ -36,6 +37,7 @@
                 ctx = that.context;
 
             that._renderBackground();
+            that._renderTimeEllapsed();
 
             for (var i = 0; i < that.spaceObjects.length; i++) {
                 var spaceObject = that.spaceObjects[i];
@@ -67,6 +69,22 @@
             ctx.drawImage(that.background, 0, 0);
         },
 
+        _renderTimeEllapsed: function() {
+            var that = this,
+                ctx = that.context,
+                years = Math.floor(that.earthAge / DAYS_IN_YEAR),
+                days = that.earthAge > DAYS_IN_YEAR ? that.earthAge % DAYS_IN_YEAR : that.earthAge;
+            
+            ctx.font = "14px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "left";
+            ctx.fillText("Time ellapsed: " + years + " years, " + days + " days", 5, 25);
+        },
+
+        _onEarthAgeChange: function(age) {
+            this.earthAge = age;
+        },
+
         _getImage: function(filename) {
             var image = new Image();
             image.src = filename;
@@ -84,5 +102,6 @@
     const WIDTH = 600,
         HEIGHT = 600,
         BLACK = "#000",
-        UPDATE_TIMEOUT = 1000 / 60
+        UPDATE_TIMEOUT = 1000 / 60,
+        DAYS_IN_YEAR = 365;
 })();
