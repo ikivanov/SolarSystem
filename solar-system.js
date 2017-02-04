@@ -10,6 +10,9 @@
         that.canvas.height = HEIGHT;
         that.context = that.canvas.getContext("2d");
         that.earthAge = 0;
+        that.oldTime = new Date();
+        that.framesCounter = 0;
+        that.fps = 0;
 
         that.background = that._getImage("images/space.png");
 
@@ -38,6 +41,7 @@
 
             that._renderBackground();
             that._renderTimeEllapsed();
+            that._renderFPS();
 
             for (var i = 0; i < that.spaceObjects.length; i++) {
                 var spaceObject = that.spaceObjects[i];
@@ -81,6 +85,26 @@
             ctx.fillText("Time ellapsed: " + years + " years, " + days + " days", 5, 25);
         },
 
+        _renderFPS: function() {
+            var that = this,
+                now = new Date(),
+                ctx = that.context,
+                diff = now.getTime() - that.oldTime.getTime();
+
+            if (diff < 1000) {
+                that.framesCounter++;
+            } else {
+                that.fps = that.framesCounter;
+                that.framesCounter = 0;
+                that.oldTime = new Date();
+            }
+
+            ctx.font = "14px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "left";
+            ctx.fillText("fps: " + that.fps, 550, 25);
+        },
+
         _onEarthAgeChange: function(age) {
             this.earthAge = age;
         },
@@ -102,6 +126,6 @@
     const WIDTH = 600,
         HEIGHT = 600,
         BLACK = "#000",
-        UPDATE_TIMEOUT = 1000 / 60,
+        UPDATE_TIMEOUT = 1000 / 65,
         DAYS_IN_YEAR = 365;
 })();
