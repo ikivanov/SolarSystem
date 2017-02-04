@@ -9,7 +9,7 @@
         that.context = config.context;
         that.earth = config.earth;
         that.angle = 270;
-        that.speedAngle = 3.379;
+        that.angleStep = 3.379;
         that.radius = 5;
         that.backgroundColor = "#FFF";
         that.earthDistance = 35;
@@ -25,7 +25,7 @@
             that.angle = 0;
         }
 
-        that.angle += that.speedAngle;
+        that.angle += that.angleStep;
 
         that.x = that.earth.x + (that.earthDistance * Math.cos(that._toRadians(that.angle)));
         that.y = that.earth.y + (that.earthDistance * Math.sin(that._toRadians(that.angle)));

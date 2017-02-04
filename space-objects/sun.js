@@ -5,31 +5,19 @@
         SolarSystemNamespace.SpaceObject.call(this);
 
         that.context = config.context;
+        that.image = config.image;
+        that.angle = 270;
+        that.angleStep = 0;
+        that.selfRotationAngle = 0;
+        that.selfRotationAngleStep = 0.5;
+        that.radius = 30;
+        that.backgroundColor = "#FF7801";
+        that.sunDistance = 0;
     }
 
     Sun.prototype = Object.create(SolarSystemNamespace.SpaceObject.prototype);
     Sun.prototype.constructor = Sun;
 
-    Sun.prototype.update = function() {
-        //TODO: apply rotation
-    },
-
-    Sun.prototype.render = function() {
-        var ctx = this.context;
-
-        ctx.beginPath();
-        ctx.strokeStyle = YELLOW;
-        ctx.arc(CENTER_X, CENTER_Y, RADIUS, 0, 2 * Math.PI);
-        ctx.fillStyle = YELLOW;
-        ctx.fill();
-        ctx.stroke();
-    }
-
     window.SolarSystemNamespace = window.SolarSystemNamespace || {};
     SolarSystemNamespace.Sun = Sun;
-
-    const CENTER_X = 300,
-        CENTER_Y = 300,
-        RADIUS = 25,
-        YELLOW = "#FF7801"
 })();

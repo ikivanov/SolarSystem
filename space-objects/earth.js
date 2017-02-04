@@ -7,9 +7,12 @@
         SolarSystemNamespace.SpaceObject.call(that);
 
         that.context = config.context;
+        that.image = config.image;
         that.angle = 270;
-        that.speedAngle = 0.25;
-        that.radius = 15;
+        that.angleStep = 0.25;
+        that.selfRotationAngle = 0;
+        that.selfRotationAngleStep = 2.5;
+        that.radius = 25;
         that.backgroundColor = "#2F475D";
         that.sunDistance = 120;
 

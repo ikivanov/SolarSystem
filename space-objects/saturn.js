@@ -9,7 +9,7 @@
 
         that.context = config.context;
         that.angle = 270;
-        that.speedAngle = 0.0086;
+        that.angleStep = 0.0086;
         that.radius = 5;
         that.backgroundColor = "#E4D59E";
         that.sunDistance = 220;

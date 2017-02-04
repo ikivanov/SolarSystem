@@ -10,11 +10,13 @@
         that.canvas.height = HEIGHT;
         that.context = that.canvas.getContext("2d");
 
+        that.background = that._getImage("images/space.png");
+
         that.spaceObjects = [
-            new SolarSystemNamespace.Sun({ context: that.context }),
+            new SolarSystemNamespace.Sun({ context: that.context, image: that._getImage("images/sun.png") }),
             new SolarSystemNamespace.Mercury({ context: that.context }),
             new SolarSystemNamespace.Venus({ context: that.context }),
-            new SolarSystemNamespace.Earth({ context: that.context }),
+            new SolarSystemNamespace.Earth({ context: that.context, image: that._getImage("images/earth.png") }),
             new SolarSystemNamespace.Mars({ context: that.context }),
             new SolarSystemNamespace.Jupiter({ context: that.context }),
             new SolarSystemNamespace.Saturn({ context: that.context }),
@@ -33,11 +35,7 @@
             var that = this,
                 ctx = that.context;
 
-            ctx.beginPath();
-            ctx.rect(0, 0, WIDTH, HEIGHT);
-            ctx.fillStyle = BLACK;
-            ctx.fill();
-            ctx.stroke();
+            that._renderBackground();
 
             for (var i = 0; i < that.spaceObjects.length; i++) {
                 var spaceObject = that.spaceObjects[i];
@@ -60,6 +58,19 @@
                 that.context.clearRect(0, 0, canvas.width, canvas.height);
                 that._render();
             }, UPDATE_TIMEOUT);
+        },
+
+        _renderBackground: function() {
+            var that = this,
+                ctx = that.context;
+
+            ctx.drawImage(that.background, 0, 0);
+        },
+
+        _getImage: function(filename) {
+            var image = new Image();
+            image.src = filename;
+            return image;
         },
 
         _toRadians: function(degrees) {

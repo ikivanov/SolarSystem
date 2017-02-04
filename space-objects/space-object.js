@@ -1,6 +1,8 @@
 (function() {
     function SpaceObject() {
         this.satelites = [];
+        this.selfRotationAngle = 0;
+        this.selfRotationAngleStep = 0;
     }
 
     SpaceObject.prototype.update = function() {
@@ -10,13 +12,42 @@
             that.angle = 0;
         }
 
-        that.angle += that.speedAngle;
+        that.angle += that.angleStep;
 
         that.x = CENTER_X + (that.sunDistance * Math.cos(that._toRadians(that.angle)));
         that.y = CENTER_Y + (that.sunDistance * Math.sin(that._toRadians(that.angle)));
+    
+        if (that.selfRotationAngle > 360) {
+            that.selfRotationAngle = 0;
+        }
+
+        that.selfRotationAngle += that.selfRotationAngleStep;
     }
 
     SpaceObject.prototype.render = function() {
+        var that = this,
+            ctx = that.context;
+
+        if (that.image) {
+            that._renderImage();
+        } else {
+            that._renderCircle();
+        }
+    }
+
+    SpaceObject.prototype._renderImage = function() {
+        var that = this,
+            ctx = that.context,
+            rotationAngle = that._toRadians(that.selfRotationAngle);
+
+        ctx.translate(that.x, that.y);
+        ctx.rotate(rotationAngle);
+        ctx.drawImage(that.image, -that.radius, -that.radius);
+        ctx.rotate(-rotationAngle);
+        ctx.translate(-that.x, -that.y);
+    },
+
+    SpaceObject.prototype._renderCircle = function() {
         var that = this,
             ctx = that.context;
 
